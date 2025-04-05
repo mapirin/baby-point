@@ -16,4 +16,14 @@ public class BabyPointController {
 	public String showPagePointExecute() {
 		return "pointExecute";
 	}
+	
+//	@PostMapping("")
+//	public String clickStoreOk() {
+//		return "";
+//	}
+//	
+//	@PostMapping("")
+//	public String clickUseOk() {
+//		return "";
+//	}
 }
