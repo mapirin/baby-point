@@ -16,16 +16,4 @@ public class BabyPointController {
 	public String showPagePointExecute() {
 		return "pointExecute";
 	}
-	
-	//ためる→サブウインドウのOK押下
-//	@PostMapping("")
-//	public String clickStoreOk() {
-//		return "";
-//	}
-//	
-	//つかう→サブウインドウのOK押下
-//	@PostMapping("")
-//	public String clickUseOk() {
-//		return "";
-//	}
 }

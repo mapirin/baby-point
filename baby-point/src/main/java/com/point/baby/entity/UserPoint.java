@@ -11,11 +11,11 @@ import lombok.Setter;
 @Component
 @Getter
 @Setter
-public class UserPoint {
+public class UserPoint implements PointIf {
 
 	@Id
 	private String userName;
 	private int point;
-	private String updateTimestamp;
+	private Long updateTimestamp;
 
 }

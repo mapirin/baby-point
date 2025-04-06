@@ -1,19 +1,14 @@
 package com.point.baby.entity;
 
-import org.springframework.stereotype.Component;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Component
+@Data
 @Getter
 @Setter
-public class PointList implements PointIf{
+public class PointForm {
 
-	@Id
 	private String recordId;
 	private String userName;
 	private String pointTitle;

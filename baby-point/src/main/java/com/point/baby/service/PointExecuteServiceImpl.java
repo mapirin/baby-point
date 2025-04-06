@@ -3,6 +3,7 @@ package com.point.baby.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.point.baby.entity.PointForm;
 import com.point.baby.entity.PointList;
 import com.point.baby.entity.UserPoint;
 import com.point.baby.repository.PointListRepository;
@@ -18,6 +19,9 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	public PointListRepository pointListRepository;
 	
 	@Autowired
+	public PointForm pointForm;
+	
+	@Autowired
 	public UserPoint userPoint;
 	
 	@Autowired
@@ -25,48 +29,38 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	
 	/**
 	 * 「ためる」「つかう」用CRUD処理
-	 * 各INSERT用処理と履歴確認用のTBL登録処理
+	 * ポイント表示用更新処理と履歴確認用のTBL登録処理
 	 */
 //	@Transactional
-	public void executePointExecute(String userName, int point) {
-		//ボタン押下ごとにユニークなタイムスタンプを取得して設定
-		//TODO 動作確認用に最大値をオンコーディング
-		String timestamp = "9999/12/31 23:59:99.999999";
+	public void executePointExecute(PointForm pointForm) {
+		Long timestamp = System.currentTimeMillis();
 		
-		userPoint.setUserName(userName);
-		userPoint.setPoint(point);
+		//USER_POINT TBL用のBEANにデータ設定
+		userPoint.setUserName("masa");
+		userPoint.setPoint(pointForm.getPoint());
 		userPoint.setUpdateTimestamp(timestamp);
 		
-		insertPointStock(userPoint);
-		insertPointUse(userPoint);
+		insertUserPoint(userPoint);
 		
-		//TODO ユニークな値=TIMESTAMPをintに変換した値を使用
-		pointList.setRecordId("");
-		pointList.setUserName(userName);
-		//TODO 画面からタイトルを渡す必要あり
-		pointList.setPointTitle("");
-		pointList.setPoint(point);
+		//POINT_LIST TBL用のBEANにデータ設定
+		pointList.setRecordId(pointForm.getRecordId());
+		pointList.setUserName("masa");
+		pointList.setPointTitle(pointForm.getPointTitle());
+		pointList.setPoint(pointForm.getPoint());
 		pointList.setUpdateTimestamp(timestamp);
 		
 		insertPointList(pointList);
 	}
 	
 	/*
-	 * 「ためる」ボタン押下時処理後、ユーザのUSERPOINTTBLレコードを最新ポイントで更新
+	 * 「ためる」「つかう」ボタン押下時処理後、ユーザのUSER_POINT TBLレコードを最新ポイントで更新
 	 */
-	public void insertPointStock(UserPoint userPoint) {
+	public void insertUserPoint(UserPoint userPoint) {
 		userPointRepository.save(userPoint);
 	}
 	
 	/*
-	 * 「つかう」ボタン押下時処理後、ユーザのUSERPOINTTBLレコードを最新ポイントで更新
-	 */
-	public void insertPointUse(UserPoint userPoint) {
-		userPointRepository.save(userPoint);
-	}
-	
-	/*
-	 * 「ためる」「つかう」ボタン押下後、いずれかの処理で使用したデータで新規レコード登録
+	 * 「ためる」「つかう」ボタン押下後、いずれかの処理で使用したデータでPOINT_LIST TBLの新規レコード登録
 	 */
 	public void insertPointList(PointList pointList) {
 		pointListRepository.save(pointList);
