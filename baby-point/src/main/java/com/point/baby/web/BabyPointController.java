@@ -17,11 +17,13 @@ public class BabyPointController {
 		return "pointExecute";
 	}
 	
+	//ためる→サブウインドウのOK押下
 //	@PostMapping("")
 //	public String clickStoreOk() {
 //		return "";
 //	}
 //	
+	//つかう→サブウインドウのOK押下
 //	@PostMapping("")
 //	public String clickUseOk() {
 //		return "";
