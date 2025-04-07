@@ -12,12 +12,12 @@ returnStockButton.addEventListener('click', async ()=>{
 		
 		//リクエストデータを定義
 		const stockId = selectedRadio.id;
-		const stockValue  = point + Number(selectedRadio.value);
+		const stockPoint  = point + Number(selectedRadio.value);
 		//リクエストボディに設定
 		const requestBody = {
-			user: 'masa',
-			id: stockId,
-			value: stockValue,
+			userName: 'masa',
+			pointId: stockId,
+			point: stockPoint,
 		};
 		
 		try{
@@ -31,7 +31,7 @@ returnStockButton.addEventListener('click', async ()=>{
 			});
 			//レスポンス結果による処理分岐
 			if(responce.ok){
-		        window.opener.postMessage({updatePoint:stockValue}, window.location.origin);
+		        window.opener.postMessage({updatePoint:stockPoint}, window.location.origin);
 		        window.close();
 			}else{
 				errorMessage.textContent = `リクエストが失敗しました。: ${responce.status}`;

@@ -1,5 +1,7 @@
 package com.point.baby.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,27 +29,38 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	@Autowired
 	public PointList pointList;
 	
+	
+	/*
+	 * 
+	 */
+	public int selectPoint(String userName) {
+		return userPointRepository.findByPoint(userName);
+	}
+	
+	
 	/**
 	 * 「ためる」「つかう」用CRUD処理
 	 * ポイント表示用更新処理と履歴確認用のTBL登録処理
 	 */
 //	@Transactional
-	public void executePointExecute(PointForm pointForm) {
-		Long timestamp = System.currentTimeMillis();
+	public void updatePoint(PointForm pointForm) {
+		//recordIdとupdateTimestampを生成
+		String recordId = String.valueOf(System.currentTimeMillis());
+		LocalDateTime updateTimestamp = LocalDateTime.now();
 		
 		//USER_POINT TBL用のBEANにデータ設定
-		userPoint.setUserName("masa");
+		userPoint.setUserName(pointForm.getUserName());
 		userPoint.setPoint(pointForm.getPoint());
-		userPoint.setUpdateTimestamp(timestamp);
+		userPoint.setUpdateTimestamp(updateTimestamp);
 		
 		insertUserPoint(userPoint);
 		
 		//POINT_LIST TBL用のBEANにデータ設定
-		pointList.setRecordId(pointForm.getRecordId());
-		pointList.setUserName("masa");
-		pointList.setPointTitle(pointForm.getPointTitle());
+		pointList.setRecordId(recordId);
+		pointList.setUserName(pointForm.getUserName());
+		pointList.setPointId(pointForm.getPointId());
 		pointList.setPoint(pointForm.getPoint());
-		pointList.setUpdateTimestamp(timestamp);
+		pointList.setUpdateTimestamp(updateTimestamp);
 		
 		insertPointList(pointList);
 	}

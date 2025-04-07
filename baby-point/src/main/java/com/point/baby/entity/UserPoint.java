@@ -1,5 +1,7 @@
 package com.point.baby.entity;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Entity;
@@ -16,6 +18,6 @@ public class UserPoint implements PointIf {
 	@Id
 	private String userName;
 	private int point;
-	private Long updateTimestamp;
+	private LocalDateTime updateTimestamp;
 
 }

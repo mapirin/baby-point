@@ -9,8 +9,31 @@ const backButton = document.getElementById("backButton");
 initialize();
 
 //index.jsで再ロードした内容を反映するための関数を指定
-function initialize(){
+async function initialize(){
 	let pointDspl = document.getElementById("pointDspl");
+	
+	//初期表示時のSQLパラメータ
+	const requestBody = {
+		userName: 'masa'
+	};
+	
+	try{
+		const responce = await fetch('/init',{
+			method: 'POST',
+			headers: {
+				'Content-Type':'application/json',
+			},
+			body: JSON.stringify(requestBody),
+		});
+		
+		if(!responce.ok){
+			consolo.log(responce.status);
+		}else{
+			//responce.json()でポイントを取得
+		}
+	}catch(error){
+		
+	}
 	pointDspl.textContent = 0;
 	if(pointDspl.textContent <= 0){
 	    useButton.disabled = true; 

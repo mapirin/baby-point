@@ -1,17 +1,16 @@
 package com.point.baby.entity;
 
-import lombok.Data;
+import org.springframework.stereotype.Component;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+@Component
 @Getter
 @Setter
 public class PointForm {
 
-	private String recordId;
 	private String userName;
-	private String pointTitle;
+	private String pointId;
 	private int point;
-	private Long updateTimestamp;
 }
