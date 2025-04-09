@@ -4,21 +4,22 @@ import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.point.baby.entity.PointForm;
 import com.point.baby.entity.PointList;
 import com.point.baby.entity.UserPoint;
-import com.point.baby.repository.PointListRepository;
-import com.point.baby.repository.UserPointRepository;
+import com.point.baby.repository.PointListMapper;
+import com.point.baby.repository.UserPointMapper;
 
 @Service
 public class PointExecuteServiceImpl implements PointExecuteService {
 
 	@Autowired
-	public UserPointRepository userPointRepository;
+	public UserPointMapper userPointMapper;
 	
 	@Autowired
-	public PointListRepository pointListRepository;
+	public PointListMapper pointListMapper;
 	
 	@Autowired
 	public PointForm pointForm;
@@ -34,7 +35,7 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	 * 
 	 */
 	public int selectPoint(String userName) {
-		return userPointRepository.findByPoint(userName);
+		return userPointMapper.selectPointByUserName(userName);
 	}
 	
 	
@@ -42,7 +43,7 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	 * 「ためる」「つかう」用CRUD処理
 	 * ポイント表示用更新処理と履歴確認用のTBL登録処理
 	 */
-//	@Transactional
+	@Transactional
 	public void updatePoint(PointForm pointForm) {
 		//recordIdとupdateTimestampを生成
 		String recordId = String.valueOf(System.currentTimeMillis());
@@ -53,7 +54,7 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 		userPoint.setPoint(pointForm.getPoint());
 		userPoint.setUpdateTimestamp(updateTimestamp);
 		
-		insertUserPoint(userPoint);
+		userPointMapper.updateUserPoint(userPoint);
 		
 		//POINT_LIST TBL用のBEANにデータ設定
 		pointList.setRecordId(recordId);
@@ -62,20 +63,20 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 		pointList.setPoint(pointForm.getPoint());
 		pointList.setUpdateTimestamp(updateTimestamp);
 		
-		insertPointList(pointList);
+		pointListMapper.insertPointList(pointList);
 	}
 	
-	/*
-	 * 「ためる」「つかう」ボタン押下時処理後、ユーザのUSER_POINT TBLレコードを最新ポイントで更新
-	 */
-	public void insertUserPoint(UserPoint userPoint) {
-		userPointRepository.save(userPoint);
-	}
+//	/*
+//	 * 「ためる」「つかう」ボタン押下時処理後、ユーザのUSER_POINT TBLレコードを最新ポイントで更新
+//	 */
+//	public void insertUserPoint(UserPoint userPoint) {
+//		userPointRepository.save(userPoint);
+//	}
 	
-	/*
-	 * 「ためる」「つかう」ボタン押下後、いずれかの処理で使用したデータでPOINT_LIST TBLの新規レコード登録
-	 */
-	public void insertPointList(PointList pointList) {
-		pointListRepository.save(pointList);
-	}
+//	/*
+//	 * 「ためる」「つかう」ボタン押下後、いずれかの処理で使用したデータでPOINT_LIST TBLの新規レコード登録
+//	 */
+//	public void insertPointList(PointList pointList) {
+//		pointListRepository.save(pointList);
+//	}
 }

@@ -27,9 +27,10 @@ async function initialize(){
 		});
 		
 		if(!responce.ok){
-			consolo.log(responce.status);
-		}else{
-			//responce.json()でポイントを取得
+			console.log(responce.status);
+//		}else{
+			const responceJson = await responce.json();
+			pointDspl.textContent = responceJson.point();
 		}
 	}catch(error){
 		

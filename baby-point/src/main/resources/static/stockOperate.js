@@ -22,7 +22,7 @@ returnStockButton.addEventListener('click', async ()=>{
 		
 		try{
 			//レスポンスURL、方式、データ形式、ボディ部を定義
-			const responce = await fetch('/crud-execute', {
+			const responce = await fetch('http://localhost:8080/stockExecute.html/click-ok', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

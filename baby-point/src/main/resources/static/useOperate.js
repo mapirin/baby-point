@@ -7,13 +7,14 @@ let errorMessage = document.getElementById("errorMessage");
 const urlParams = new URLSearchParams(window.location.search);
 let point = Number(urlParams.get("point"))
 
-returnUseButton.addEventListener('click', ()=>{
+returnUseButton.addEventListener('click', async ()=>{
     const selectedRadio = document.querySelector('input[name="useOptions"]:checked');
-    if(selectedRadio){
+    //リクエストデータを定義
+	const stockId = selectedRadio.id;
+	const stockPoint  = point - Number(selectedRadio.value);
+    
+    if(selectedRadio && (point - Number(selectedRadio.value)>=0)){
 		
-		//リクエストデータを定義
-		const stockId = selectedRadio.id;
-		const stockPoint  = point - Number(selectedRadio.value);
 		//リクエストボディに設定
 		const requestBody = {
 			userName: 'masa',
@@ -23,7 +24,7 @@ returnUseButton.addEventListener('click', ()=>{
 		
 		try{
 			//レスポンスURL、方式、データ形式、ボディ部を定義
-			const responce = await fetch('/crud-execute', {
+			const responce = await fetch('/click-ok', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ returnUseButton.addEventListener('click', ()=>{
     }
 })
 
-backButton.addEventListener('clicl', ()=>{
+backButton.addEventListener('click', ()=>{
 	window.opener.postMessage({updatePoint:point}, window.location.origin);
 	window.close();
 })
