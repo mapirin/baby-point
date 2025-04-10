@@ -1,11 +1,9 @@
 package com.point.baby.entity;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@Component
+//@Component
 @Getter
 @Setter
 public class PointForm {

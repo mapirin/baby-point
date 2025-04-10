@@ -7,19 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.point.baby.entity.PointForm;
-import com.point.baby.entity.PointList;
 import com.point.baby.entity.UserPoint;
-import com.point.baby.repository.PointListMapper;
-import com.point.baby.repository.UserPointMapper;
 
 @Service
 public class PointExecuteServiceImpl implements PointExecuteService {
 
-	@Autowired
-	public UserPointMapper userPointMapper;
+//	@Autowired
+//	private UserPointMapper userPointMapper;
 	
-	@Autowired
-	public PointListMapper pointListMapper;
+//	@Autowired
+//	private PointListMapper pointListMapper;
 	
 	@Autowired
 	public PointForm pointForm;
@@ -27,15 +24,16 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	@Autowired
 	public UserPoint userPoint;
 	
-	@Autowired
-	public PointList pointList;
+//	@Autowired
+//	public PointList pointList;
 	
 	
 	/*
 	 * 
 	 */
 	public int selectPoint(String userName) {
-		return userPointMapper.selectPointByUserName(userName);
+		return 0;
+//				userPointMapper.selectPointByUserName(userName);
 	}
 	
 	
@@ -54,16 +52,16 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 		userPoint.setPoint(pointForm.getPoint());
 		userPoint.setUpdateTimestamp(updateTimestamp);
 		
-		userPointMapper.updateUserPoint(userPoint);
+//		userPointMapper.updateUserPoint(userPoint);
 		
 		//POINT_LIST TBL用のBEANにデータ設定
-		pointList.setRecordId(recordId);
-		pointList.setUserName(pointForm.getUserName());
-		pointList.setPointId(pointForm.getPointId());
-		pointList.setPoint(pointForm.getPoint());
-		pointList.setUpdateTimestamp(updateTimestamp);
-		
-		pointListMapper.insertPointList(pointList);
+//		pointList.setRecordId(recordId);
+//		pointList.setUserName(pointForm.getUserName());
+//		pointList.setPointId(pointForm.getPointId());
+//		pointList.setPoint(pointForm.getPoint());
+//		pointList.setUpdateTimestamp(updateTimestamp);
+//		
+//		pointListMapper.insertPointList(pointList);
 	}
 	
 //	/*

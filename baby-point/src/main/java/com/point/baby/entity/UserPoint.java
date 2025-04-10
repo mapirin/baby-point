@@ -2,12 +2,10 @@ package com.point.baby.entity;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Component;
-
 import lombok.Getter;
 import lombok.Setter;
 
-@Component
+//@Component
 @Getter
 @Setter
 public class UserPoint{
