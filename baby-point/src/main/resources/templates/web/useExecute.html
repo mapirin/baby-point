@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"></html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    </head>
+    <body>
+		<form th:action="@{/click-on}" th:object="${updatePointForm}" method="post">
+	        <button id="returnUseButton">OK</button>
+	        <button id="backButton">戻る</button>
+	        <p id="errorMessage"></p>
+	        <table>
+	            <tr>
+	                <td>
+	                    <input type="radio" name="useOptions" id="sushi" value=30>おすし：30ポイント
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    <input type="radio" name="useOptions" id="starbacksDrink" value=15>スタバのフラペチーノ：15ポイント
+	                </td>
+	            </tr>
+	            <tr>
+	                <td>
+	                    <input type="radio" name="useOptions" id="mossShake" value=15>モスシェイク：15ポイント
+	                </td>
+	            </tr>
+	        </table>
+        </form>
+    </body>
+</html>

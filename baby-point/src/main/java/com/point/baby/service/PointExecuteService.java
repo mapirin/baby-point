@@ -1,5 +1,9 @@
 package com.point.baby.service;
 
-public interface PointExecuteService {
+import com.point.baby.entity.PointForm;
 
+public interface PointExecuteService {
+	
+	public int selectPoint(String userName);
+	public void updatePoint(PointForm pointForm);
 }

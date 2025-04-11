@@ -8,12 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.point.baby.entity.PointForm;
 import com.point.baby.entity.UserPoint;
+import com.point.baby.repository.UserPointRepository;
 
 @Service
 public class PointExecuteServiceImpl implements PointExecuteService {
 
-//	@Autowired
-//	private UserPointMapper userPointMapper;
+	@Autowired
+	private UserPointRepository userPointRepository;
 	
 //	@Autowired
 //	private PointListMapper pointListMapper;
@@ -32,8 +33,7 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 	 * 
 	 */
 	public int selectPoint(String userName) {
-		return 0;
-//				userPointMapper.selectPointByUserName(userName);
+		return userPointRepository.findByUserName(userName);
 	}
 	
 	
@@ -52,7 +52,7 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 		userPoint.setPoint(pointForm.getPoint());
 		userPoint.setUpdateTimestamp(updateTimestamp);
 		
-//		userPointMapper.updateUserPoint(userPoint);
+		insertUserPoint(userPoint);
 		
 		//POINT_LIST TBL用のBEANにデータ設定
 //		pointList.setRecordId(recordId);
@@ -64,12 +64,12 @@ public class PointExecuteServiceImpl implements PointExecuteService {
 //		pointListMapper.insertPointList(pointList);
 	}
 	
-//	/*
-//	 * 「ためる」「つかう」ボタン押下時処理後、ユーザのUSER_POINT TBLレコードを最新ポイントで更新
-//	 */
-//	public void insertUserPoint(UserPoint userPoint) {
-//		userPointRepository.save(userPoint);
-//	}
+	/*
+	 * 「ためる」「つかう」ボタン押下時処理後、ユーザのUSER_POINT TBLレコードを最新ポイントで更新
+	 */
+	public void insertUserPoint(UserPoint userPoint) {
+		userPointRepository.save(userPoint);
+	}
 	
 //	/*
 //	 * 「ためる」「つかう」ボタン押下後、いずれかの処理で使用したデータでPOINT_LIST TBLの新規レコード登録
